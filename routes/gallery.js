@@ -20,7 +20,6 @@ link : Text (the image url)
 description : TextArea
 
 
-DELETE /gallery/:id to delete a single gallery photo identified by the :id param
 */
 
 
@@ -43,8 +42,17 @@ each gallery photo should include a link to edit this gallery photo
       } );
   } )
   .put( ( req, res ) => {
+    let request = req.body;
     console.log( 'put for gallery/id' );
-    Gallery.findById( parseInt( req.params.id ) )
+    Gallery.update( {
+      author: request.author,
+      link: request.link,
+      description: request.description
+    }, {
+      where: {
+        id: req.params.id
+      }
+    } )
       .then( ( photo ) => {
         console.log( photo );
         res.end();
@@ -57,6 +65,8 @@ each gallery photo should include a link to edit this gallery photo
   } )
   .delete( ( req, res ) => {
     console.log( 'delete for gallery/id' );
+
+//DELETE /gallery/:id to delete a single gallery photo identified by the :id param
   } );
 
 router.get( '/gallery/new', ( req, res ) => {
