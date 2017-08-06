@@ -63,7 +63,7 @@ router.route( '/gallery/:id' )
       } )
       .catch( ( err ) => {
         console.log( photo );
-        //redirect on fail?
+        res.redirect( 400, `./${ req.params.id }` );
       } );
 
   } )
@@ -97,11 +97,10 @@ router.route( '/gallery' )
       console.log( data );
       console.log( 'created new photo' );
       res.redirect( 200, `./${ data.id }` );
-      //REDIRECT TO NEW PHOTO PAGE
     } )
     .catch( ( err ) => {
       console.log( err );
-      //redirect somewhere if submission fails?
+      res.redirect( 400, './' );
     } );
   } )
   .get( ( req, res ) => {
