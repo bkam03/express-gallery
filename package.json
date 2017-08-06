@@ -1,0 +1,23 @@
+{
+  "name": "express-gallery",
+  "version": "1.0.0",
+  "description": "Express Gallery ===============",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bkam03/express-gallery.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bkam03/express-gallery/issues"
+  },
+  "homepage": "https://github.com/bkam03/express-gallery#readme",
+  "dependencies": {
+    "sequelize": "^4.4.2"
+  }
+}
