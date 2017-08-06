@@ -4,13 +4,6 @@ const router = express.Router();
 const db = require( '../models' );
 const Gallery = db.gallery;
 
-/*
-GET /gallery/:id/edit to see a form to edit a gallery photo identified by the :id param
-the form fields are:
-author : Text
-link : Text (the image url)
-description : TextArea
-*/
 
 
 router.get( '/gallery/:id/edit', ( req, res ) => {
@@ -19,6 +12,14 @@ router.get( '/gallery/:id/edit', ( req, res ) => {
     .then( ( photo ) => {
       console.log( photo );
       res.end();
+/*
+render a form to edit this photo.
+GET /gallery/:id/edit to see a form to edit a gallery photo identified by the :id param
+the form fields are:
+author : Text
+link : Text (the image url)
+description : TextArea
+*/
     } )
     .catch( ( err ) => {
       console.log( err );
@@ -34,6 +35,7 @@ router.route( '/gallery/:id' )
         console.log( photo );
         res.end();
 /*
+render this photo
 each gallery photo should include a link to delete this gallery photo
 each gallery photo should include a link to edit this gallery photo
 */
@@ -86,6 +88,7 @@ each gallery photo should include a link to edit this gallery photo
 router.get( '/gallery/new', ( req, res ) => {
   console.log( 'get for gallery/new' );
 /*
+render a form to submit a new photo
 GET /gallery/new to see a "new photo" form
 the form fields are:
 author : Text
@@ -106,13 +109,13 @@ router.post( '/gallery', ( req, res ) => {
   .then( ( data ) => {
     console.log( data );
     console.log( 'created new photo' );
-    res.end();
+    res.redirect( 200, `./gallery/${ data.id }` );
     //REDIRECT TO NEW PHOTO PAGE
   } )
   .catch( ( err ) => {
     console.log( err );
+    //redirect somewhere if submission fails?
   } );
-  console.log( 'post for gallery/' );
 } );
 
 
