@@ -18,9 +18,7 @@ router.get( '/gallery/:id/edit', ( req, res ) => {
       let resObject = {
         id: values.id,
         link: values.link,
-        author: values.author,
-        description: values.description
-      };
+        author: values.author,      };
       console.log( values );
       res.render( '../views/edit', resObject );
 
@@ -37,12 +35,14 @@ router.route( '/gallery/:id' )
     Gallery.findById( parseInt( req.params.id ) )
       .then( ( photo ) => {
         console.log( photo );
-        res.end();
-/*
-render this photo
-each gallery photo should include a link to delete this gallery photo
-each gallery photo should include a link to edit this gallery photo
-*/
+        let values = photo.dataValues;
+        let resObject = {
+          id: values.id,
+          link: values.link,
+          author: values.author,
+          description: values.description
+        };
+        res.render( 'photoView', resObject );
       } );
   } )
   .put( ( req, res ) => {
@@ -59,11 +59,11 @@ each gallery photo should include a link to edit this gallery photo
     } )
       .then( ( photo ) => {
         console.log( photo );
-        res.end();
-//redirect to gallery photo that was edited.
+        res.redirect( 200, `./${ req.params.id }` );
       } )
       .catch( ( err ) => {
         console.log( photo );
+        //redirect on fail?
       } );
 
   } )
