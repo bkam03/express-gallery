@@ -1,35 +1,24 @@
 const express = require( 'express' );
+const exphbs = require( 'express-handlebars' );
 const bp = require( 'body-parser' );
 
-const PORT = process.env.PORT || 3000;
-
 const db = require( './models' );
+const galleryRoute = require( './routes/gallery.js' );
 
+const PORT = process.env.PORT || 3000;
 const Gallery = db.gallery;
 
 const app = express();
 
+const hbs = exphbs.create( {
+  defaultLayout : 'main',
+  extname : 'hbs'
+});
+
+
 
 app.use( bp.urlencoded() );
-/*
-GET / to view a list of gallery photos
-GET /gallery/:id to see a single gallery photo
-each gallery photo should include a link to delete this gallery photo
-each gallery photo should include a link to edit this gallery photo
-GET /gallery/new to see a "new photo" form
-the form fields are:
-author : Text
-link : Text (the image url)
-description : TextArea
-POST /gallery to create a new gallery photo i
-GET /gallery/:id/edit to see a form to edit a gallery photo identified by the :id param
-the form fields are:
-author : Text
-link : Text (the image url)
-description : TextArea
-PUT /gallery/:id updates a single gallery photo identified by the :id param
-DELETE /gallery/:id to delete a single gallery photo identified by the :id param
-*/
+app.use( '/', galleryRoute );
 
 
 
