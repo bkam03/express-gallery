@@ -19,14 +19,7 @@ router.get( '/gallery/:id/edit', ( req, res ) => {
       };
       console.log( values );
       res.render( '../views/edit', resObject );
-/*
-render a form to edit this photo.
-GET /gallery/:id/edit to see a form to edit a gallery photo identified by the :id param
-the form fields are:
-author : Text
-link : Text (the image url)
-description : TextArea
-*/
+
     } )
     .catch( ( err ) => {
       console.log( err );
@@ -106,40 +99,37 @@ description : TextArea
 
 } );
 
-
-router.post( '/gallery', ( req, res ) => {
-  Gallery.create( {
-    author: req.body.author,
-    link: req.body.link,
-    description: req.body.description
-  } )
-  .then( ( data ) => {
-    console.log( data );
-    console.log( 'created new photo' );
-    res.redirect( 200, `./gallery/${ data.id }` );
-    //REDIRECT TO NEW PHOTO PAGE
-  } )
-  .catch( ( err ) => {
-    console.log( err );
-    //redirect somewhere if submission fails?
-  } );
-} );
-
-
-router.get( '/', ( req, res ) => {
-  Gallery.findAll()
-    .then( ( photos ) => {
-      photos.forEach( function( photo ) {
-        console.log( photo.author );
-      } );
-      //THIS NEEDS TO RENDER AS LIST OF GALLERY PHOTOS
+router.route( '/gallery' )
+  .post( ( req, res ) => {
+    Gallery.create( {
+        author: req.body.author,
+        link: req.body.link,
+        description: req.body.description
+    } )
+    .then( ( data ) => {
+      console.log( data );
+      console.log( 'created new photo' );
+      res.redirect( 200, `./gallery/${ data.id }` );
+      //REDIRECT TO NEW PHOTO PAGE
     } )
     .catch( ( err ) => {
       console.log( err );
+      //redirect somewhere if submission fails?
     } );
-  console.log( 'get for /' );
-  res.end();
-} );
+  } )
+  .get( ( req, res ) => {
+    Gallery.findAll()
+      .then( ( photos ) => {
+        /*photos.forEach( function( photo ) {
+          console.log( photo.author );
+        } );*/
+        res.render( 'galleryPage', {photos} );
+        //THIS NEEDS TO RENDER AS LIST OF GALLERY PHOTOS
+      } )
+      .catch( ( err ) => {
+        console.log( err );
+      } );
+    } );
 
 
 module.exports = router;
