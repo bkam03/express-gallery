@@ -1,8 +1,14 @@
-<form action="/articles/{{id}}" method="post">
+<h2>Edit A Photo</h2>
+
+<img src="{{link}}" alt="photo">
+
+<form action="/gallery/{{id}}" method="post">
+<!--
   <label for="title">title</label>
-<!--   <br>
+<br>
 <input type="text" id="title" name="title" value="{{id}}">
-<br> -->
+<br>
+-->
   <br>
   <label for="author">author</label>
   <br>
@@ -21,5 +27,5 @@
   <br>
 
   <input type="hidden" name="_method" value="PUT">
-  <input type="submit" value="Edit Something">
+  <input type="submit" value="Edit">
 </form>
