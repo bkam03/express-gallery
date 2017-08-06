@@ -35,5 +35,6 @@ DELETE /gallery/:id to delete a single gallery photo identified by the :id param
 
 
 const server = app.listen( PORT, () => {
+  db.sequelize.sync();
   console.log( `server running on ${ PORT }` );
 } );
