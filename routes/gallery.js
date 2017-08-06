@@ -1,7 +1,8 @@
 const express = require( 'express' );
 const router = express.Router();
 
-
+const db = require( '../models' );
+const Gallery = db.gallery;
 /*
 GET / to view a list of gallery photos
 
@@ -28,20 +29,6 @@ PUT /gallery/:id updates a single gallery photo identified by the :id param
 DELETE /gallery/:id to delete a single gallery photo identified by the :id param
 */
 
-/*
-/gallery/:id/edit   get
-
-/gallery/:id        get
-                    put
-                    delete
-
-/gallery/new        get
-
-/gallery            post
-
-/                   get
-
-*/
 
 router.get( '/gallery/:id/edit', ( req, res ) => {
   console.log( 'get for gallery/id/edit' );
@@ -61,6 +48,23 @@ router.route( '/gallery/:id' )
 
 router.get( '/gallery/new', ( req, res ) => {
   console.log( 'get for gallery/new' );
+} );
+
+router.post( '/gallery', ( req, res ) => {
+  Gallery.create( {
+    author: req.body.author,
+    link: req.body.link,
+    description: req.body.description
+  } )
+  .then( ( data ) => {
+    console.log( data );
+    console.log( 'created new photo' );
+    res.end();
+  } )
+  .catch( ( err ) => {
+    console.log( err );
+  } );
+  console.log( 'post for gallery/' );
 } );
 
 router.get( '/', ( req, res ) => {
