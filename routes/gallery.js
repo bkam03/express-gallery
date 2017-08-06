@@ -76,7 +76,7 @@ router.route( '/gallery/:id' )
     } )
       .then( ( photoId ) => {
         console.log( `photo ${ photoId } deleted` );
-        res.end();
+        res.redirect( 200, './gallery' );
         //REDIRECT TO MAIN LISTING?
       } )
       .catch( ( err ) => {
@@ -100,7 +100,7 @@ router.route( '/gallery' )
     .then( ( data ) => {
       console.log( data );
       console.log( 'created new photo' );
-      res.redirect( 200, `./gallery/${ data.id }` );
+      res.redirect( 200, `./${ data.id }` );
       //REDIRECT TO NEW PHOTO PAGE
     } )
     .catch( ( err ) => {
