@@ -8,16 +8,6 @@ const Gallery = db.gallery;
 router.get( '/gallery/new', ( req, res ) => {
   console.log( 'get for gallery/new' );
   res.render( './newPhoto' );
-/*
-render a form to submit a new photo
-GET /gallery/new to see a "new photo" form
-the form fields are:
-author : Text
-link : Text (the image url)
-description : TextArea
-
-*/
-
 } );
 
 router.get( '/gallery/:id/edit', ( req, res ) => {
