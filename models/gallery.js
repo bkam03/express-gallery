@@ -1,7 +1,8 @@
 module.exports = function(sequelize, DataTypes) {
-  var Gallery = sequelize.define("Gallery", {
-    name: DataTypes.STRING,
-    fish: DataTypes.STRING
+  var Gallery = sequelize.define("gallery", {
+    author: DataTypes.STRING,
+    link: DataTypes.STRING,
+    description: DataTypes.STRING
 
 
   }, {
