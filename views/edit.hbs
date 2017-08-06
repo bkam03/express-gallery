@@ -1,0 +1,25 @@
+<form action="/articles/{{id}}" method="post">
+  <label for="title">title</label>
+<!--   <br>
+<input type="text" id="title" name="title" value="{{id}}">
+<br> -->
+  <br>
+  <label for="author">author</label>
+  <br>
+  <input type="text" id="author" name="author" value="{{author}}">
+  <br>
+  <br>
+  <label for="link">link</label>
+  <br>
+  <input type="text" id="link" name="link" value="{{link}}">
+  <br>
+  <br>
+  <label for="description">description</label>
+  <br>
+  <input type="text" id="description" name="description" value="{{description}}">
+  <br>
+  <br>
+
+  <input type="hidden" name="_method" value="PUT">
+  <input type="submit" value="Edit Something">
+</form>
