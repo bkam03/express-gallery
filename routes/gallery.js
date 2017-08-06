@@ -76,15 +76,11 @@ router.route( '/gallery/:id' )
     } )
       .then( ( photoId ) => {
         console.log( `photo ${ photoId } deleted` );
-        res.redirect( 200, './gallery' );
-        //REDIRECT TO MAIN LISTING?
+        res.redirect( 200, './' );
       } )
       .catch( ( err ) => {
         console.log( err );
       } );
-
-
-//DELETE /gallery/:id to delete a single gallery photo identified by the :id param
   } );
 
 
