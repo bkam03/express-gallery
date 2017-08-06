@@ -56,7 +56,7 @@ each gallery photo should include a link to edit this gallery photo
       .then( ( photo ) => {
         console.log( photo );
         res.end();
-//PUT /gallery/:id updates a single gallery photo identified by the :id param
+//redirect to gallery photo that was edited.
       } )
       .catch( ( err ) => {
         console.log( photo );
@@ -66,12 +66,28 @@ each gallery photo should include a link to edit this gallery photo
   .delete( ( req, res ) => {
     console.log( 'delete for gallery/id' );
 
+    Gallery.destroy( {
+      where: {
+        id: req.params.id
+      }
+    } )
+      .then( ( anything ) => {
+        console.log( `@@@@${anything}` );
+        res.end();
+      } )
+      .catch( ( err ) => {
+        console.log( err );
+      } );
+
+
 //DELETE /gallery/:id to delete a single gallery photo identified by the :id param
   } );
+
 
 router.get( '/gallery/new', ( req, res ) => {
   console.log( 'get for gallery/new' );
 } );
+
 
 router.post( '/gallery', ( req, res ) => {
   Gallery.create( {
@@ -90,6 +106,7 @@ router.post( '/gallery', ( req, res ) => {
   } );
   console.log( 'post for gallery/' );
 } );
+
 
 router.get( '/', ( req, res ) => {
   Gallery.findAll()
