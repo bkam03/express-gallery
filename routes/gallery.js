@@ -3,12 +3,9 @@ const router = express.Router();
 
 const db = require( '../models' );
 const Gallery = db.gallery;
-/*
-GET / to view a list of gallery photos
 
-GET /gallery/:id to see a single gallery photo
-each gallery photo should include a link to delete this gallery photo
-each gallery photo should include a link to edit this gallery photo
+/*
+
 
 GET /gallery/new to see a "new photo" form
 the form fields are:
@@ -22,7 +19,6 @@ author : Text
 link : Text (the image url)
 description : TextArea
 
-PUT /gallery/:id updates a single gallery photo identified by the :id param
 
 DELETE /gallery/:id to delete a single gallery photo identified by the :id param
 */
@@ -36,9 +32,28 @@ router.get( '/gallery/:id/edit', ( req, res ) => {
 router.route( '/gallery/:id' )
   .get( ( req, res ) => {
     console.log( 'get for gallery/id' );
+    Gallery.findById( parseInt( req.params.id ) )
+      .then( ( photo ) => {
+        console.log( photo );
+        res.end();
+/*
+each gallery photo should include a link to delete this gallery photo
+each gallery photo should include a link to edit this gallery photo
+*/
+      } );
   } )
   .put( ( req, res ) => {
     console.log( 'put for gallery/id' );
+    Gallery.findById( parseInt( req.params.id ) )
+      .then( ( photo ) => {
+        console.log( photo );
+        res.end();
+//PUT /gallery/:id updates a single gallery photo identified by the :id param
+      } )
+      .catch( ( err ) => {
+        console.log( photo );
+      } );
+
   } )
   .delete( ( req, res ) => {
     console.log( 'delete for gallery/id' );
@@ -58,6 +73,7 @@ router.post( '/gallery', ( req, res ) => {
     console.log( data );
     console.log( 'created new photo' );
     res.end();
+    //REDIRECT TO NEW PHOTO PAGE
   } )
   .catch( ( err ) => {
     console.log( err );
@@ -71,6 +87,7 @@ router.get( '/', ( req, res ) => {
       photos.forEach( function( photo ) {
         console.log( photo.author );
       } );
+      //THIS NEEDS TO RENDER AS LIST OF GALLERY PHOTOS
     } )
     .catch( ( err ) => {
       console.log( err );
