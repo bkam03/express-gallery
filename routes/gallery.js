@@ -5,6 +5,19 @@ const db = require( '../models' );
 const Gallery = db.gallery;
 
 
+router.get( '/gallery/new', ( req, res ) => {
+  console.log( 'get for gallery/new' );
+/*
+render a form to submit a new photo
+GET /gallery/new to see a "new photo" form
+the form fields are:
+author : Text
+link : Text (the image url)
+description : TextArea
+
+*/
+
+} );
 
 router.get( '/gallery/:id/edit', ( req, res ) => {
   console.log( 'get for gallery/id/edit' );
@@ -85,19 +98,6 @@ each gallery photo should include a link to edit this gallery photo
 
 
 
-router.get( '/gallery/new', ( req, res ) => {
-  console.log( 'get for gallery/new' );
-/*
-render a form to submit a new photo
-GET /gallery/new to see a "new photo" form
-the form fields are:
-author : Text
-link : Text (the image url)
-description : TextArea
-
-*/
-
-} );
 
 router.route( '/gallery' )
   .post( ( req, res ) => {
@@ -120,11 +120,8 @@ router.route( '/gallery' )
   .get( ( req, res ) => {
     Gallery.findAll()
       .then( ( photos ) => {
-        /*photos.forEach( function( photo ) {
-          console.log( photo.author );
-        } );*/
         res.render( 'galleryPage', {photos} );
-        //THIS NEEDS TO RENDER AS LIST OF GALLERY PHOTOS
+//This hangs for some reason
       } )
       .catch( ( err ) => {
         console.log( err );
