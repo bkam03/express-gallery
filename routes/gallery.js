@@ -10,8 +10,13 @@ router.get( '/gallery/:id/edit', ( req, res ) => {
   console.log( 'get for gallery/id/edit' );
   Gallery.findById( parseInt( req.params.id ) )
     .then( ( photo ) => {
-      console.log( photo );
-      res.end();
+      let values = photo.dataValues;
+      console.log( values );
+      res.render( '../views/edit', {
+        id: values.id,
+        author: values.author,
+        description: values.description
+      } );
 /*
 render a form to edit this photo.
 GET /gallery/:id/edit to see a form to edit a gallery photo identified by the :id param
