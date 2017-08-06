@@ -1,7 +1,11 @@
 <img src="{{link}}" alt="photo"></img>
 <p>{{author}}</p>
 <p>{{description}}</p>
-<a href="">delete photo</a>
+
+<form action="/gallery/{{id}}" method="post">
+  <input type="hidden" name="_method" value="DELETE">
+  <input type="submit" value="Delete Photo">
+</form>
 <a href="./{{id}}/edit">edit photo</a>
 
 /*
