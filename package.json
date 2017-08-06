@@ -18,6 +18,10 @@
   },
   "homepage": "https://github.com/bkam03/express-gallery#readme",
   "dependencies": {
+    "body-parser": "^1.17.2",
+    "express": "^4.15.3",
+    "pg": "^7.1.0",
+    "pg-hstore": "^2.3.2",
     "sequelize": "^4.4.2"
   }
 }
