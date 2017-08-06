@@ -5,26 +5,24 @@ const db = require( '../models' );
 const Gallery = db.gallery;
 
 /*
-
-
-GET /gallery/new to see a "new photo" form
-the form fields are:
-author : Text
-link : Text (the image url)
-description : TextArea
-
 GET /gallery/:id/edit to see a form to edit a gallery photo identified by the :id param
 the form fields are:
 author : Text
 link : Text (the image url)
 description : TextArea
-
-
 */
 
 
 router.get( '/gallery/:id/edit', ( req, res ) => {
   console.log( 'get for gallery/id/edit' );
+  Gallery.findById( parseInt( req.params.id ) )
+    .then( ( photo ) => {
+      console.log( photo );
+      res.end();
+    } )
+    .catch( ( err ) => {
+      console.log( err );
+    } );
 } );
 
 
@@ -65,15 +63,15 @@ each gallery photo should include a link to edit this gallery photo
   } )
   .delete( ( req, res ) => {
     console.log( 'delete for gallery/id' );
-
     Gallery.destroy( {
       where: {
         id: req.params.id
       }
     } )
-      .then( ( anything ) => {
-        console.log( `@@@@${anything}` );
+      .then( ( photoId ) => {
+        console.log( `photo ${ photoId } deleted` );
         res.end();
+        //REDIRECT TO MAIN LISTING?
       } )
       .catch( ( err ) => {
         console.log( err );
@@ -84,8 +82,18 @@ each gallery photo should include a link to edit this gallery photo
   } );
 
 
+
 router.get( '/gallery/new', ( req, res ) => {
   console.log( 'get for gallery/new' );
+/*
+GET /gallery/new to see a "new photo" form
+the form fields are:
+author : Text
+link : Text (the image url)
+description : TextArea
+
+*/
+
 } );
 
 
