@@ -16,8 +16,6 @@ author : Text
 link : Text (the image url)
 description : TextArea
 
-POST /gallery to create a new gallery photo i
-
 GET /gallery/:id/edit to see a form to edit a gallery photo identified by the :id param
 the form fields are:
 author : Text
@@ -68,7 +66,17 @@ router.post( '/gallery', ( req, res ) => {
 } );
 
 router.get( '/', ( req, res ) => {
+  Gallery.findAll()
+    .then( ( photos ) => {
+      photos.forEach( function( photo ) {
+        console.log( photo.author );
+      } );
+    } )
+    .catch( ( err ) => {
+      console.log( err );
+    } );
   console.log( 'get for /' );
+  res.end();
 } );
 
 
