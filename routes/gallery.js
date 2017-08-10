@@ -5,6 +5,15 @@ const db = require( '../models' );
 const Gallery = db.gallery;
 
 
+function userAuthenticated( req, res, next ){
+  if( req.isAuthenticated() ){
+    console.log( 'user is authenticated' );
+  } else {
+    console.log( 'user fails authentication' );
+    res.redirect( '/' );
+  }
+}
+
 router.get( '/gallery/new', ( req, res ) => {
   res.render( './newPhoto' );
 } );
