@@ -20,8 +20,8 @@ app.set( 'view engine', 'hbs' );
 
 
 app.use( bp.urlencoded() );
-app.use(methodOverride('X-HTTP-Method-Override'));
 
+app.use(methodOverride('X-HTTP-Method-Override'));
 app.use(methodOverride(function (req, res) {
   if(req.body && typeof req.body === 'object' && '_method' in req.body) {
     // Look in urlencoded POST bodies and delete it
@@ -30,6 +30,8 @@ app.use(methodOverride(function (req, res) {
     return method;
   }
 }));
+
+app.use(express.static('public'));
 
 app.use( '/', galleryRoute );
 
