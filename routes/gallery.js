@@ -1,4 +1,6 @@
 const express = require( 'express' );
+const Passport = require( 'passport' );
+
 const router = express.Router();
 
 const db = require( '../models' );
@@ -104,25 +106,27 @@ router.post( '/gallery', ( req, res ) => {
     } );
   } );
 
-router.route( '/login' )
-  .get( ( req, res ) => {
+router.get( '/login', ( req, res ) => {
     res.render( 'login' );
-  } )
-  .post( ( req, res ) => {
-    console.log( 'posting to login' );
   } );
 
-  router.get( '/', ( req, res ) => {
-    Gallery.findAll()
-      .then( ( photos ) => {
-        console.log( photos );
-        res.render( 'galleryPage', {photos} );
+
+router.post( '/login', Passport.authenticate( 'local', {
+  successRedirect: '/',
+  failureRedirect: '/login'
+} ) );
+
+router.get( '/', ( req, res ) => {
+  Gallery.findAll()
+    .then( ( photos ) => {
+      //console.log( photos );
+      res.render( 'galleryPage', {photos} );
 //This hangs for some reason
-      } )
-      .catch( ( err ) => {
-        console.log( err );
-      } );
+    } )
+    .catch( ( err ) => {
+      console.log( err );
     } );
+  } );
 
 
 module.exports = router;
