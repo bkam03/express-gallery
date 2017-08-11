@@ -38,7 +38,9 @@ app.use(methodOverride(function (req, res) {
 }));
 
 app.use( Passport.initialize() );
-app.use( session() );
+app.use( session( {
+  secret: 'thisisasecret'
+} ) );
 
 Passport.use( new LocalStrategy( function( username, password, done ) {
   console.log( 'client side username', username );
@@ -67,7 +69,7 @@ Passport.serializeUser( function( user, done ){
   done( unll, user.id );
 });
 
-Passport.deserialization( function( userId, done ){
+Passport.deserializeUser( function( userId, done ){
   console.log( 'adding user information nto the req object', userId );
   User.findOne( {
     where: {
