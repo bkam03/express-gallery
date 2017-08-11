@@ -37,14 +37,16 @@ app.use(methodOverride(function (req, res) {
   }
 }));
 
-app.use( Passport.initialize() );
-app.use( session( {
+app.use( session({
   secret: 'thisisasecret'
-} ) );
+}));
+
+app.use( Passport.initialize() );
+app.use( Passport.session() );
 
 Passport.use( new LocalStrategy( function( username, password, done ) {
   console.log( 'client side username', username );
-  console.log( 'clientside password' );
+  console.log( 'clientside password', password );
 
   User.findOne( {
     where: {
@@ -61,29 +63,34 @@ Passport.use( new LocalStrategy( function( username, password, done ) {
         message: 'incorrect password'
       } );
     }
-  } );
+  } )
+  .catch( (err) => {
+    console.log( '@@@@', err );
+  });
 }));
 
 Passport.serializeUser( function( user, done ){
-  console.log( 'serializing the user into session' );
+  console.log( 'serializing the user into session', user.id );
   done( null, user.id );
 });
 
 Passport.deserializeUser( function( userId, done ){
-  console.log( 'adding user information nto the req object', userId );
+  console.log( 'adding user information nto the req object@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@', userId );
   User.findOne( {
     where: {
       id: userId
     }
   } ).then( ( user ) => {
+    console.log('then');
     return done( null, {
       id: user.id,
       username: user.username
     } );
   } ).catch( ( err ) => {
+    console.log( err );
     done( err, user );
   } );
-  done( null, user );
+  //done( null, user );
 } );
 
 
