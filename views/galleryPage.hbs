@@ -2,11 +2,13 @@
 <div>
   <br>
   {{#each photos}}
-    <img src="{{link}}" alt="photo"></img>
-    <p>{{author}}</p>
-    <p>{{description}}</p>
-    <p>{{id}}</p>
-    <br>
-    <br>
+    <a href="./gallery/{{id}}">
+      <img src="{{link}}" alt="photo"></img>
+      <p>{{author}}</p>
+      <p>{{description}}</p>
+      <p>{{id}}</p>
+      <br>
+      <br>
+    </a>
   {{/each}}
 </div>
