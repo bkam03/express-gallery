@@ -104,6 +104,14 @@ router.post( '/gallery', ( req, res ) => {
     } );
   } );
 
+router.route( '/login' )
+  .get( ( req, res ) => {
+    res.render( 'login' );
+  } )
+  .post( ( req, res ) => {
+    console.log( 'posting to login' );
+  } );
+
   router.get( '/', ( req, res ) => {
     Gallery.findAll()
       .then( ( photos ) => {
