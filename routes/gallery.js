@@ -22,7 +22,7 @@ router.get( '/gallery/new', ( req, res ) => {
   res.render( './newPhoto' );
 } );
 
-router.get( '/gallery/:id/edit', ( req, res ) => {
+router.get( '/gallery/:id/edit', userAuthenticated, ( req, res ) => {
   Gallery.findById( parseInt( req.params.id ) )
     .then( ( photo ) => {
       let values = photo.dataValues;
