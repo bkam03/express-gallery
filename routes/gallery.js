@@ -8,6 +8,7 @@ const Gallery = db.gallery;
 function userAuthenticated( req, res, next ){
   if( req.isAuthenticated() ){
     console.log( 'user is authenticated' );
+    next();
   } else {
     console.log( 'user fails authentication' );
     res.redirect( '/' );
