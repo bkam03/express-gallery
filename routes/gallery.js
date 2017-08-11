@@ -116,6 +116,17 @@ router.post( '/login', Passport.authenticate( 'local', {
   failureRedirect: '/login'
 } ) );
 
+
+router.get( '/register', ( req, res ) => {
+    res.render( 'register' );
+  } );
+
+
+router.post( '/register', ( req, res ) => {
+
+} );
+
+
 router.get( '/', ( req, res ) => {
   Gallery.findAll()
     .then( ( photos ) => {
