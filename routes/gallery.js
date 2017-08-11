@@ -14,7 +14,7 @@ function userAuthenticated( req, res, next ){
     next();
   } else {
     console.log( 'user fails authentication' );
-    res.redirect( '/' );
+    res.redirect( '/login' );
   }
 }
 
@@ -57,7 +57,7 @@ router.route( '/gallery/:id' )
         //maybe do something if id not found.
       });
   } )
-  .put( ( req, res ) => {
+  .put( userAuthenticated, ( req, res ) => {
     let request = req.body;
     Gallery.update( {
       author: request.author,
@@ -77,7 +77,7 @@ router.route( '/gallery/:id' )
       } );
 
   } )
-  .delete( ( req, res ) => {
+  .delete( userAuthenticated, ( req, res ) => {
     Gallery.destroy( {
       where: {
         id: req.params.id
@@ -85,7 +85,7 @@ router.route( '/gallery/:id' )
     } )
       .then( ( photoId ) => {
         console.log( `photo ${ photoId } deleted` );
-        res.redirect( 200, './' );
+        res.redirect( 200, '/' );
       } )
       .catch( ( err ) => {
         console.log( err );
