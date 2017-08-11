@@ -4,6 +4,7 @@ const Passport = require( 'passport' );
 const router = express.Router();
 
 const db = require( '../models' );
+const { User } = db;
 const Gallery = db.gallery;
 
 
@@ -50,7 +51,11 @@ router.route( '/gallery/:id' )
           description: values.description
         };
         res.render( 'photoView', resObject );
-      } );
+      } )
+      .catch( (err) => {
+        console.log( err );
+        //maybe do something if id not found.
+      });
   } )
   .put( ( req, res ) => {
     let request = req.body;
@@ -123,16 +128,41 @@ router.get( '/register', ( req, res ) => {
 
 
 router.post( '/register', ( req, res ) => {
-
+  console.log( 'posting register' );
+  console.log( req.body.username );
+  User.create( {
+    username: req.body.username,
+    password: req.body.password
+  } )
+    .then( ( user ) => {
+      console.log( 'new user' );
+      console.log( user );
+      res.redirect( 200, './login' );
+    } )
+    .catch( (err) => {
+      console.log( 'user creation failed cause...' , err );
+    } ) ;
+  /*User.findOne( {  //later check if username being registered already exists
+    where: {
+      username: req.body.username
+    }
+  } )
+    .then( ( user ) => {
+      console.log( 'user@@@@@', user );
+  } )
+    .catch( ( err ) => {
+      console.log( 'user exists' );
+      console.log( err );
+  } );*/
+  //if username in database, redirect to register.
+  //else display some sort of received page, and send to gallery.
 } );
 
 
 router.get( '/', ( req, res ) => {
   Gallery.findAll()
     .then( ( photos ) => {
-      //console.log( photos );
       res.render( 'galleryPage', {photos} );
-//This hangs for some reason
     } )
     .catch( ( err ) => {
       console.log( err );
