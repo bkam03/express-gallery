@@ -66,7 +66,7 @@ Passport.use( new LocalStrategy( function( username, password, done ) {
 
 Passport.serializeUser( function( user, done ){
   console.log( 'serializing the user into session' );
-  done( unll, user.id );
+  done( null, user.id );
 });
 
 Passport.deserializeUser( function( userId, done ){
