@@ -1,19 +1,23 @@
-  <div class="photo" id='frontPhoto'>
+<div id="frontPhoto">
+  <div class="photo" >
     <a href="./gallery/{{frontPhoto.id}}">
       <img src="{{frontPhoto.link}}" alt="photo"></img>
-      <div class="label">
-        <p>{{frontPhoto.author}}
-        <br>
-        {{frontPhoto.description}}
-        <br>
-        {{frontPhoto.id}}</p>
-      </div>
     </a>
-  </div>
+    <div class="label">
+      <p>{{frontPhoto.author}}
+      <br>
+      {{frontPhoto.description}}
+      <br>
+      {{frontPhoto.id}}</p>
+    </div>
+</div>
+</div>
+<div class="photoList">
 {{#each photos}}
-  <div class="photo">
-    <a href="./gallery/{{id}}">
-      <img src="{{link}}" alt="photo"></img>
+    <div class="photo">
+      <a href="./gallery/{{id}}">
+        <img src="{{link}}" alt="photo"></img>
+      </a>
       <div class="label">
         <p>{{author}}
         <br>
@@ -21,6 +25,6 @@
         <br>
         {{id}}</p>
       </div>
-    </a>
-  </div>
-{{/each}}
+    </div>
+  {{/each}}
+</div>
