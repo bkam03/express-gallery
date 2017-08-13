@@ -1,7 +1,17 @@
 
-<div>
   <br>
-  {{#each photos}}
+  <div class="photo" id='frontPhoto'>
+    <a href="./gallery/{{frontPhoto.id}}">
+      <img src="{{frontPhoto.link}}" alt="photo"></img>
+      <p>{{frontPhoto.author}}</p>
+      <p>{{frontPhoto.description}}</p>
+      <p>{{frontPhoto.id}}</p>
+      <br>
+      <br>
+    </a>
+  </div>
+{{#each photos}}
+  <div class="photo">
     <a href="./gallery/{{id}}">
       <img src="{{link}}" alt="photo"></img>
       <p>{{author}}</p>
@@ -10,5 +20,5 @@
       <br>
       <br>
     </a>
-  {{/each}}
-</div>
+  </div>
+{{/each}}
