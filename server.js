@@ -2,9 +2,12 @@ const express = require( 'express' );
 const exphbs = require( 'express-handlebars' );
 const bp = require( 'body-parser' );
 const methodOverride = require( 'method-override' );
-
 const Passport = require( 'passport' );
 const session = require( 'express-session' );
+const RedisStore = require('connect-redis')(session);
+
+
+const Config = require('./config/config.json');
 const LocalStrategy = require( 'passport-local' ).Strategy;
 
 const db = require( './models' );
@@ -38,7 +41,12 @@ app.use(methodOverride(function (req, res) {
 }));
 
 app.use( session({
-  secret: 'thisisasecret'
+  secret: Config.SESSION_SECRET,
+  store: new RedisStore(),
+  cookie: {
+    maxAge: 604800000
+  },
+  saveUninitialized: true
 }));
 
 app.use( Passport.initialize() );
