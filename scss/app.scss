@@ -1,3 +1,12 @@
+.header{
+  display: flex;
+  align-items: center;
+  font-size: 8;
+  p {
+    font-size: 40%;
+  }
+}
+
 .content {
   display: flex;
   flex-flow: wrap;
@@ -5,6 +14,7 @@
 
 .photo {
   display: flex;
+  flex-flow: wrap;
   width: 33%;
   height: 10rem;
   border: 1px solid black;
@@ -15,6 +25,7 @@
   img {
     width: 95%;
     border: 1px solid black;
+    object-fit: cover;
   }
   p {
     color: red;
