@@ -33,6 +33,9 @@ body {
   border: 1px solid black; }
   #frontPhoto img {
     width: 85%; }
+  @media screen and (min-width: 540px) {
+    #frontPhoto .photo {
+      width: 100%; } }
 
 .photoList {
   display: flex;
@@ -40,6 +43,10 @@ body {
   align-items: center;
   flex-direction: column;
   border: 3px solid black; }
+  @media screen and (min-width: 540px) {
+    .photoList {
+      flex-direction: row;
+      justify-content: space-evenly; } }
 
 .photo {
   display: flex;
@@ -47,6 +54,9 @@ body {
   align-items: center;
   border: 1px solid blue;
   width: 100%; }
+  @media screen and (min-width: 540px) {
+    .photo {
+      width: 33%; } }
 
 a {
   display: flex;
