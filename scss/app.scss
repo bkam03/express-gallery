@@ -1,21 +1,60 @@
+body {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+
+  @media screen and (min-width: 540px) {
+    background-color: violet;
+  }
+}
+
 .header{
   display: flex;
   align-items: center;
-  font-size: 8;
-  p {
-    font-size: 40%;
+  h1 {
+    text-align: center;
+    width: 100%;
+    font-size: 300%;
   }
+  #description {
+    display: none;
+    font-size: 40%;
+    width: 40%;
+  }
+
 }
+
+/* @media screen and ( min-width: 540px ) {
+  .header{
+    background-color: violet;
+    display: flex;
+    align-items: center;
+    h1 {
+      text-align: center;
+      width: 60%;
+      font-size: 100%;
+    }
+    #description {
+      font-size: 40%;
+      width: 40%;
+    }
+  }
+} */
 
 .content {
   display: flex;
   flex-flow: wrap;
+  justify-content: center;
 }
 
+#frontPhoto {
+  width: 80%;
+}
 .photo {
   display: flex;
   flex-flow: wrap;
-  width: 33%;
+  justify-content: center;
+  width: 75%;
   height: 10rem;
   border: 1px solid black;
   margin: 0.5rem;
