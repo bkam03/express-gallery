@@ -171,3 +171,11 @@ router.get( '/', ( req, res ) => {
 
 
 module.exports = router;
+
+
+/*
+new
+login
+register
+back to front
+*/
