@@ -162,7 +162,13 @@ router.post( '/register', ( req, res ) => {
 router.get( '/', ( req, res ) => {
   Gallery.findAll()
     .then( ( photos ) => {
-      res.render( 'galleryPage', {photos} );
+      console.log( photos );
+      let firstPhoto = photos.shift();
+      let galleryObj = {
+        frontPhoto: firstPhoto,
+        photos: photos
+      };
+      res.render( 'galleryPage', galleryObj );
     } )
     .catch( ( err ) => {
       console.log( err );
