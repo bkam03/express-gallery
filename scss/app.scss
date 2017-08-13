@@ -48,8 +48,10 @@ body {
   img {
     width: 85%;
   }
-    @media screen and (min-width: $desktop-threshold) {
-
+  @media screen and (min-width: $desktop-threshold) {
+    .photo {
+      width: 100%;
+    }
   }
 }
 
@@ -59,7 +61,10 @@ body {
   align-items: center;
   flex-direction: column;
   border: 3px solid black;
-
+  @media screen and (min-width: $desktop-threshold) {
+    flex-direction: row;
+    justify-content: space-evenly;
+  }
 }
 
 .photo {
@@ -68,6 +73,9 @@ body {
   align-items: center;
   border: 1px solid blue;
   width: 100%;
+  @media screen and (min-width: $desktop-threshold) {
+    width: 33%;
+  }
 }
 
 a {
