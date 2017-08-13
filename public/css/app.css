@@ -1,67 +1,111 @@
 body {
   display: flex;
-  justify-content: center;
+  align-items: center;
   flex-direction: column; }
-  @media screen and (min-width: 540px) {
-    body {
-      background-color: violet; } }
 
-.header {
-  display: flex;
-  align-items: center; }
-  .header h1 {
-    text-align: center;
-    width: 100%;
-    font-size: 300%; }
-  .header #description {
-    display: none;
-    font-size: 40%;
-    width: 40%; }
-
-/* @media screen and ( min-width: 540px ) {
-  .header{
-    background-color: violet;
-    display: flex;
-    align-items: center;
-    h1 {
-      text-align: center;
-      width: 60%;
-      font-size: 100%;
-    }
-    #description {
-      font-size: 40%;
-      width: 40%;
-    }
-  }
-} */
 .content {
   display: flex;
   flex-flow: wrap;
-  justify-content: center; }
+  align-items: center;
+  flex-direction: column;
+  max-width: 1200px; }
+
+.header {
+  display: flex;
+  align-items: center;
+  max-width: 1200px; }
+  .header h1 {
+    text-align: center;
+    width: 100%;
+    font-size: 300%;
+    padding: 5px; }
+  .header #description {
+    display: none;
+    font-size: 50%;
+    width: 40%; }
+  @media screen and (min-width: 540px) {
+    .header h1 {
+      width: 60%; }
+    .header #description {
+      display: block; } }
 
 #frontPhoto {
-  width: 80%; }
+  border: 1px solid black; }
+  #frontPhoto img {
+    width: 85%; }
+
+.photoList {
+  display: flex;
+  flex-flow: wrap;
+  align-items: center;
+  flex-direction: column;
+  border: 3px solid black; }
+
+.photo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid blue;
+  width: 100%; }
+
+a {
+  display: flex;
+  flex-direction: column;
+  align-items: center; }
+
+img {
+  width: 75%;
+  object-fit: contain; }
+
+.label {
+  width: 100%; }
+  .label p {
+    text-align: left;
+    padding: 0 0 5px 5px; }
+
+/*
 
 .photo {
   display: flex;
   flex-flow: wrap;
   justify-content: center;
   width: 75%;
-  max-height: 23rem;
   min-height: 8rem;
-  margin: 0.5rem; }
-  .photo a {
+  margin: 0.5rem;
+
+  a {
     display: flex;
     flex-flow: wrap;
     justify-content: center;
     text-decoration: none;
-    color: black; }
-    .photo a img {
+    color: black;
+    img {
+
       width: 100%;
       max-height: 70%;
-      object-fit: contain; }
-  .photo .label {
-    max-height: 30%;
-    width: 100%; }
-    .photo .label p {
-      margin: 0; }
+      object-fit: contain;
+    }
+  }
+
+  p {
+    margin: 0;
+  }
+
+  @media screen and (min-width: 540px) {
+  .photo {
+    width: 33%;
+    max-height: 100%;
+    img {
+      max-height: 100%;
+    }
+  }
+  }
+}
+
+@media screen and ( min-width: 540px ) {
+
+
+
+}
+
+ */
