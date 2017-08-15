@@ -64,6 +64,11 @@ body {
   @media screen and (min-width: $desktop-threshold) {
     flex-direction: row;
     justify-content: space-evenly;
+
+    .photo {
+      width: 33%;
+
+    }
   }
 }
 
@@ -74,7 +79,6 @@ body {
   border: 1px solid blue;
   width: 100%;
   @media screen and (min-width: $desktop-threshold) {
-    width: 33%;
   }
 }
 
