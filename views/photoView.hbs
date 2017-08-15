@@ -1,15 +1,17 @@
-<img src="{{link}}" alt="photo"></img>
-<p>{{author}}</p>
-<p>{{description}}</p>
+
+<div class="photo" id="frontPhoto">
+    <img src="{{link}}" alt="photo"></img>
+  <div class="label">
+    <p>{{author}}
+    <br>
+    {{description}}
+    <br>
+    {{id}}</p>
+  </div>
+</div>
 
 <form action="/gallery/{{id}}" method="post">
   <input type="hidden" name="_method" value="DELETE">
   <input type="submit" value="Delete Photo">
 </form>
 <a href="./{{id}}/edit">edit photo</a>
-
-/*
-render this photo
-each gallery photo should include a link to delete this gallery photo
-each gallery photo should include a link to edit this gallery photo
-*/
