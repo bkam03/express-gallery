@@ -203,11 +203,11 @@ module.exports = router;
 /*
 scss
 
-new
 edit
 login
 register
 
+links connecting each function, no url typing
 logout - use req.logout() in passport docs
 specific delete/edit auth.  match postedBy?  add this to image data on upload.
 at register, check if username already exists
