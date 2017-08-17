@@ -16,10 +16,6 @@ const { User } = db;
 const PORT = process.env.PORT || 3000;
 
 
-
-
-//const Gallery = db.gallery;
-
 const app = express();
 
 const hbs = exphbs.create( {
@@ -90,7 +86,7 @@ Passport.serializeUser( function( user, done ){
 });
 
 Passport.deserializeUser( function( userId, done ){
-  console.log( 'adding user information nto the req object@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@', userId );
+  console.log( 'adding user information nto the req object', userId );
   User.findOne( {
     where: {
       id: userId
@@ -105,7 +101,6 @@ Passport.deserializeUser( function( userId, done ){
     console.log( err );
     done( err, user );
   } );
-  //done( null, user );
 } );
 
 
