@@ -6,6 +6,7 @@ const Passport = require( 'passport' );
 const session = require( 'express-session' );
 const RedisStore = require('connect-redis')(session);
 const LocalStrategy = require( 'passport-local' ).Strategy;
+const bcrypt = require( 'bcrypt' );
 
 const Config = require('./config/config.json');
 const db = require( './models' );
@@ -63,19 +64,23 @@ Passport.use( new LocalStrategy( function( username, password, done ) {
       username: username  //table -- client
     }
   } ).then( ( user ) => {
-    console.log( 'user exists i db' );
-    if( user.password === password ){
-      console.log( 'password matches' );
-      return done( null, user );
-    } else {
-      console.log( 'incorrect password' );
-      return done( null, false, {
-        message: 'incorrect password'
+    bcrypt.compare( password, user.password )
+      .then( ( result ) => {
+        console.log( 'compare result', result );
+        if( result ){
+          console.log( 'authenticated' );
+          return done( null, user );
+        } else {
+          console.log( 'password does not match' );
+          return done( null, false, { message: 'incorrect password' });
+        }
+      } )
+      .catch( ( err ) => {
+        console.log( 'compare error', err );
       } );
-    }
   } )
   .catch( (err) => {
-    console.log( '@@@@', err );
+    console.log( 'username search error', err );
   });
 }));
 
