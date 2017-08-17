@@ -96,8 +96,6 @@ router.route( '/gallery/:id' )
   } );
 
 
-
-
 router.post( '/gallery', ( req, res ) => {
     Gallery.create( {
         author: req.body.author,
@@ -152,8 +150,6 @@ router.post( '/register', ( req, res ) => {
             .catch( ( err ) => {
               console.log( err );
             } );
-
-
         } )
         .catch( ( err ) => {
           console.log( err );
@@ -205,6 +201,8 @@ module.exports = router;
 
 
 /*
+scss
+
 new
 edit
 login
@@ -213,4 +211,5 @@ register
 logout - use req.logout() in passport docs
 specific delete/edit auth.  match postedBy?  add this to image data on upload.
 at register, check if username already exists
+if photo id doesnt exist, redirect, maybe display something.
 */
