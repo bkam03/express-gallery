@@ -188,7 +188,6 @@ router.get( '/', ( req, res ) => {
     ]
   })
     .then( ( photos ) => {
-      console.log( photos );
       let firstPhoto = photos.shift();
       let galleryObj = {
         frontPhoto: firstPhoto,
