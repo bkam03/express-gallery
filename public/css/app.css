@@ -72,9 +72,14 @@ img {
     text-align: left;
     padding: 0 0 5px 5px; }
 
-#submit {
+form {
   display: flex;
-  background-color: red; }
+  flex-direction: column; }
+
+.form-field {
+  text-align: center; }
+  .form-field input {
+    text-align: center; }
 
 /* form {
   display: flex;
