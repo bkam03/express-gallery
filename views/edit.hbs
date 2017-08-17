@@ -10,22 +10,26 @@
 <br>
 -->
   <br>
-  <label for="author">author</label>
-  <br>
-  <input type="text" id="author" name="author" value="{{author}}">
-  <br>
-  <br>
-  <label for="link">link</label>
-  <br>
-  <input type="text" id="link" name="link" value="{{link}}">
-  <br>
-  <br>
-  <label for="description">description</label>
-  <br>
-  <input type="text" id="description" name="description" value="{{description}}">
-  <br>
-  <br>
+  <div class="form-field">
+    <label for="author">author</label>
+    <br>
+    <input type="text" id="author" name="author" value="{{author}}">
+  </div>
 
-  <input type="hidden" name="_method" value="PUT">
-  <input type="submit" value="Edit">
+  <div class="form-field">
+    <label for="link">link</label>
+    <br>
+    <input type="text" id="link" name="link" value="{{link}}">
+  </div>
+
+  <div class="form-field">
+    <label for="description">description</label>
+    <br>
+    <input type="text" id="description" name="description" value="{{description}}">
+  </div>
+
+  <div class="form-field">
+    <input type="hidden" name="_method" value="PUT">
+    <input type="submit" value="Edit">
+  </div>
 </form>
