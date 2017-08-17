@@ -77,7 +77,8 @@ form {
   flex-direction: column; }
 
 .form-field {
-  text-align: center; }
+  text-align: center;
+  margin: 10px; }
   .form-field input {
     text-align: center; }
 
