@@ -5,17 +5,18 @@ const methodOverride = require( 'method-override' );
 const Passport = require( 'passport' );
 const session = require( 'express-session' );
 const RedisStore = require('connect-redis')(session);
-
-
-const Config = require('./config/config.json');
 const LocalStrategy = require( 'passport-local' ).Strategy;
 
+const Config = require('./config/config.json');
 const db = require( './models' );
-const { User } = db;
-
 const galleryRoute = require( './routes/gallery.js' );
 
+const { User } = db;
 const PORT = process.env.PORT || 3000;
+
+
+
+
 //const Gallery = db.gallery;
 
 const app = express();

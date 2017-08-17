@@ -72,6 +72,14 @@ img {
     text-align: left;
     padding: 0 0 5px 5px; }
 
+#submit {
+  display: flex;
+  background-color: red; }
+
+/* form {
+  display: flex;
+  flex-direction: column;
+} */
 /*
 
 .photo {
