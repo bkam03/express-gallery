@@ -1,12 +1,15 @@
 const express = require( 'express' );
 const Passport = require( 'passport' );
-
-const router = express.Router();
+const bcrypt = require( 'bcrypt' );
 
 const db = require( '../models' );
+
 const { User } = db;
 const Gallery = db.gallery;
 
+const SaltRound = 10;
+
+const router = express.Router();
 
 function userAuthenticated( req, res, next ){
   if( req.isAuthenticated() ){
@@ -130,18 +133,37 @@ router.get( '/register', ( req, res ) => {
 router.post( '/register', ( req, res ) => {
   console.log( 'posting register' );
   console.log( req.body.username );
-  User.create( {
-    username: req.body.username,
-    password: req.body.password
-  } )
-    .then( ( user ) => {
-      console.log( 'new user' );
-      console.log( user );
-      res.redirect( 200, './login' );
+  console.log( req.body.password );
+
+  bcrypt.genSalt( SaltRound )
+    .then( ( salt ) => {
+      console.log( 'salt', salt );
+      bcrypt.hash( req.body.password, salt )
+        .then( hash => {
+          console.log( 'hash', hash );
+          User.create( {
+            username: req.body.username,
+            password: hash
+          } )
+            .then( () => {
+              console.log( 'created new user' );
+              res.redirect( 200, './' );
+            } )
+            .catch( ( err ) => {
+              console.log( err );
+            } );
+
+
+        } )
+        .catch( ( err ) => {
+          console.log( err );
+        } );
     } )
-    .catch( (err) => {
-      console.log( 'user creation failed cause...' , err );
-    } ) ;
+    .catch( ( err ) => {
+      console.log( err );
+    } );
+
+
   /*User.findOne( {  //later check if username being registered already exists
     where: {
       username: req.body.username
@@ -185,7 +207,11 @@ module.exports = router;
 
 /*
 new
+edit
 login
 register
-back to front
+
+logout - use req.logout() in passport docs
+specific delete/edit auth.  match postedBy?  add this to image data on upload.
+at register, check if username already exists
 */
