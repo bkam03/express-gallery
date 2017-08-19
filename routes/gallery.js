@@ -52,13 +52,23 @@ router.route( '/gallery/:id' )
     Gallery.findById( parseInt( req.params.id ) )
       .then( ( photo ) => {
         let values = photo.dataValues;
-        let resObject = {
-          id: values.id,
-          link: values.link,
-          author: values.author,
-          description: values.description
-        };
-        res.render( 'photoView', resObject );
+
+        let metaTags = 1;
+        photoMetas().findOne({"photoId": parseInt(req.params.id)})
+          .then( meta => {
+            metaTags = meta.metaTags;
+            let resObject = {
+              id: values.id,
+              link: values.link,
+              author: values.author,
+              description: values.description,
+              metaTags: metaTags
+            };
+            res.render( 'photoView', resObject );
+          })
+          .catch( err => {
+            console.log( 'metaTag get error', err );
+          } );
       } )
       .catch( (err) => {
         console.log( err );
