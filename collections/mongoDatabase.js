@@ -4,7 +4,6 @@ let photoMetas = null;
 
 mongoClient.connect( mongoURL, function( err, db ) {
   console.log( 'connected to mongoDB' );
-  console.log( '@@@@@@@@@@', db );
   photoMetas = db.collection( 'photoMetas' );
 } );
 
