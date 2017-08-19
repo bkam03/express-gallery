@@ -1,6 +1,7 @@
 const express = require( 'express' );
 const Passport = require( 'passport' );
 const bcrypt = require( 'bcrypt' );
+const { photoMetas } = require( '../collections/mongoDatabase.js');
 
 const db = require( '../models' );
 
@@ -21,7 +22,11 @@ function userAuthenticated( req, res, next ){
   }
 }
 
+
+
+
 router.get( '/gallery/new', ( req, res ) => {
+  photoMetas().insert( {c:'c'} );
   res.render( './newPhoto' );
 } );
 
@@ -145,7 +150,7 @@ router.post( '/register', ( req, res ) => {
           } )
             .then( () => {
               console.log( 'created new user' );
-              res.redirect( 200, './' );
+              res.redirect( 200, './' ); //does this go to the right place?
             } )
             .catch( ( err ) => {
               console.log( err );
@@ -202,11 +207,10 @@ module.exports = router;
 
 /*
 scss
+take off borders later
 
-edit
-login
-register
-
+add example config file
+handle badly rendered photos. ( off center, funny shaped ).
 links connecting each function, no url typing
 logout - use req.logout() in passport docs
 specific delete/edit auth.  match postedBy?  add this to image data on upload.
