@@ -105,7 +105,8 @@ router.post( '/gallery', ( req, res ) => {
     Gallery.create( {
         author: req.body.author,
         link: req.body.link,
-        description: req.body.description
+        description: req.body.description,
+        postedBy: req.user.id
     } )
     .then( ( data ) => {
       console.log( 'created new photo' );
@@ -183,6 +184,7 @@ router.post( '/register', ( req, res ) => {
 
 
 router.get( '/', ( req, res ) => {
+  console.log( '@@@@@@@@@user', req.user );
   Gallery.findAll({
     order: [
       ['createdAt', 'DESC']
