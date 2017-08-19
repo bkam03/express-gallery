@@ -22,6 +22,14 @@ function userAuthenticated( req, res, next ){
   }
 }
 
+function objectToArray( object ){
+  let array = [];
+  for( var key in object ){
+    let keyValuePair = { key:`${ key }: ${ object[key]}`};
+    array.push( keyValuePair );
+  }
+  return array;
+}
 
 
 
@@ -56,7 +64,7 @@ router.route( '/gallery/:id' )
         let metaTags = 1;
         photoMetas().findOne({"photoId": parseInt(req.params.id)})
           .then( meta => {
-            metaTags = meta.metaTags;
+            metaTags = objectToArray( meta.metaTags );
             let resObject = {
               id: values.id,
               link: values.link,
