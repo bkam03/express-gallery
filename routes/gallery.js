@@ -25,7 +25,10 @@ function userAuthenticated( req, res, next ){
 function objectToArray( object ){
   let array = [];
   for( var key in object ){
-    let keyValuePair = { key:`${ key }: ${ object[key]}`};
+    let keyValuePair = {
+      key:[key],
+       value: object[key]
+    };
     array.push( keyValuePair );
   }
   return array;
