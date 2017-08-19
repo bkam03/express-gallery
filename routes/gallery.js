@@ -22,11 +22,12 @@ function userAuthenticated( req, res, next ){
   }
 }
 
+
 function objectToArray( object ){
   let array = [];
   for( var key in object ){
     let keyValuePair = {
-      key:[key],
+      key: key,
        value: object[key]
     };
     array.push( keyValuePair );
@@ -42,44 +43,66 @@ router.get( '/gallery/new', ( req, res ) => {
 } );
 
 router.get( '/gallery/:id/edit', userAuthenticated, ( req, res ) => {
-  Gallery.findById( parseInt( req.params.id ) )
-    .then( ( photo ) => {
-      let values = photo.dataValues;
-      let resObject = {
-        id: values.id,
-        link: values.link,
-        author: values.author,      };
-      res.render( '../views/edit', resObject );
+  let photoId = req.params.id;
+  Gallery.findById( parseInt( photoId ) )
+  .then( ( photo ) => {
+    let values = photo.dataValues;
 
-    } )
-    .catch( ( err ) => {
-      console.log( err );
+    let metaTagArray = null;
+    photoMetas().findOne({"photoId": parseInt(photoId)})
+      .then( meta => {
+        metaTagArray = objectToArray( meta.metaTags );
+        console.log( "$$$$$$$$$$$", metaTagArray);
+
+        let resObject = {
+          id: values.id,
+          link: values.link,
+          author: values.author,
+          description: values.description,
+          metaTags: metaTagArray
+        };
+
+        res.render( '../views/edit', resObject );
+
+      })
+    .catch( err => {
+      console.log( 'metaTag get error', err );
     } );
+
+  } )
+  .catch( ( err ) => {
+    console.log( err );
+  } );
 } );
 
 
 router.route( '/gallery/:id' )
   .get( ( req, res ) => {
-    Gallery.findById( parseInt( req.params.id ) )
+    let photoId = req.params.id;
+    Gallery.findById( parseInt( photoId ) )
       .then( ( photo ) => {
         let values = photo.dataValues;
 
-        let metaTags = 1;
-        photoMetas().findOne({"photoId": parseInt(req.params.id)})
+        let metaTagArray = null;
+        photoMetas().findOne({"photoId": parseInt(photoId)})
           .then( meta => {
-            metaTags = objectToArray( meta.metaTags );
+            metaTagArray = objectToArray( meta.metaTags );
+            console.log( "$$$$$$$$$$$", metaTagArray);
+
             let resObject = {
               id: values.id,
               link: values.link,
               author: values.author,
               description: values.description,
-              metaTags: metaTags
+              metaTags: metaTagArray
             };
+
             res.render( 'photoView', resObject );
+
           })
-          .catch( err => {
-            console.log( 'metaTag get error', err );
-          } );
+        .catch( err => {
+          console.log( 'metaTag get error', err );
+        } );
       } )
       .catch( (err) => {
         console.log( err );
