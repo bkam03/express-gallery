@@ -8,6 +8,13 @@
     <br>
     {{id}}</p>
   </div>
+  <div class="metaTags">
+    {{#each metaTags}}
+      <div class="metaTag">
+        {{key}}
+      </div>
+    {{/each}}
+  </div>
 </div>
 
 <form action="/gallery/{{id}}" method="post">
