@@ -109,6 +109,11 @@ router.post( '/gallery', ( req, res ) => {
         postedBy: req.user.id
     } )
     .then( ( data ) => {
+      let photoMetaTags = {
+        photoId: data.id,
+        metaTags: req.body.meta
+      };
+      photoMetas().insert( photoMetaTags );
       console.log( 'created new photo' );
       res.redirect( 200, `./${ data.id }` );
     } )
