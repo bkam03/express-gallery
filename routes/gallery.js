@@ -22,7 +22,6 @@ function userAuthenticated( req, res, next ){
   }
 }
 
-
 function objectToArray( object ){
   let array = [];
   for( var key in object ){
@@ -36,9 +35,7 @@ function objectToArray( object ){
 }
 
 
-
 router.get( '/gallery/new', ( req, res ) => {
-  photoMetas().insert( {c:'c'} );
   res.render( './newPhoto' );
 } );
 
@@ -86,7 +83,6 @@ router.route( '/gallery/:id' )
         let metaTagArray = null;
         photoMetas().findOne({"photoId": photoId})
           .then( meta => {
-            console.log( 'META', meta);
             if( meta !== null ){
               metaTagArray = objectToArray( meta.metaTags );
             }
@@ -114,7 +110,6 @@ router.route( '/gallery/:id' )
   } )
   .put( userAuthenticated, ( req, res ) => {
     let request = req.body;
-    console.log( "EDITED META TAGS", request );
     Gallery.update( {
       author: request.author,
       link: request.link,
@@ -125,11 +120,9 @@ router.route( '/gallery/:id' )
       }
     } )
       .then( ( photo ) => {
-        console.log( "###########",req.body.meta, "#############" );
 
         photoMetas().deleteMany( { photoId: req.params.id } )
           .then( () => {
-            console.log( "deleted" );
             let photoMetaTags = {
             photoId: req.params.id,
             metaTags: req.body.meta
@@ -139,24 +132,6 @@ router.route( '/gallery/:id' )
           .catch( (err) => {
             console.log( 'did not delete', err );
           } );
-
-/*
-        photoMetas().updateOne( { photoId: parseInt(req.params.id) }, { $set : req.body.meta } )*/
-         /* .then( () => {
-            console.log( 'UPDATE(L) SUCCESS' );
-          } )
-          .catch( ( err ) => {
-            console.log( "error from update", err );
-          } );*/
-
-
-/*        photoMetas.updateOne(
-          { photoId: req.params.id },
-          {
-            $set: req.body.meta
-          }
-        );*/
-
 
 
         res.redirect( 200, `./${ req.params.id }` );
@@ -174,10 +149,16 @@ router.route( '/gallery/:id' )
       }
     } )
       .then( ( photoId ) => {
-        console.log( photoId );
+        photoMetas().deleteMany( { photoId: req.params.id } )
+          .then( () => {
+            console.log( "deleted" );
 
-        console.log( `photo ${ photoId } deleted` );
-        res.redirect( 200, '/' );
+            res.redirect( 200, '/' );
+
+        } )
+        .catch( (err) => {
+          console.log( 'did not delete', err );
+        } );
       } )
       .catch( ( err ) => {
         console.log( err );
@@ -198,7 +179,6 @@ router.post( '/gallery', ( req, res ) => {
         metaTags: req.body.meta
       };
       photoMetas().insert( photoMetaTags );
-      console.log( 'created new photo' );
       res.redirect( 200, `./${ data.id }` );
     } )
     .catch( ( err ) => {
@@ -224,23 +204,17 @@ router.get( '/register', ( req, res ) => {
 
 
 router.post( '/register', ( req, res ) => {
-  console.log( 'posting register' );
-  console.log( req.body.username );
-  console.log( req.body.password );
 
   bcrypt.genSalt( SaltRound )
     .then( ( salt ) => {
-      console.log( 'salt', salt );
       bcrypt.hash( req.body.password, salt )
         .then( hash => {
-          console.log( 'hash', hash );
           User.create( {
             username: req.body.username,
             password: hash
           } )
             .then( () => {
-              console.log( 'created new user' );
-              res.redirect( 200, './' ); //does this go to the right place?
+              res.redirect( 200, './' );
             } )
             .catch( ( err ) => {
               console.log( err );
@@ -254,21 +228,6 @@ router.post( '/register', ( req, res ) => {
       console.log( err );
     } );
 
-
-  /*User.findOne( {  //later check if username being registered already exists
-    where: {
-      username: req.body.username
-    }
-  } )
-    .then( ( user ) => {
-      console.log( 'user@@@@@', user );
-  } )
-    .catch( ( err ) => {
-      console.log( 'user exists' );
-      console.log( err );
-  } );*/
-  //if username in database, redirect to register.
-  //else display some sort of received page, and send to gallery.
 } );
 
 router.get( '/logout', ( req, res ) => {
@@ -304,11 +263,7 @@ module.exports = router;
 scss
 take off borders later
 
-add example config file
-handle badly rendered photos. ( off center, funny shaped ).
-links connecting each function, no url typing
-logout - use req.logout() in passport docs
+
+
 specific delete/edit auth.  match postedBy?  add this to image data on upload.
 at register, check if username already exists
-if photo id doesnt exist, redirect, maybe display something.
-*/
