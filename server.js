@@ -15,13 +15,13 @@ const galleryRoute = require( './routes/gallery.js' );
 const { User } = db;
 const PORT = process.env.PORT || 3000;
 
-
 const app = express();
 
 const hbs = exphbs.create( {
   defaultLayout : 'main',
   extname : 'hbs'
 });
+
 app.engine( 'hbs', hbs.engine );
 app.set( 'view engine', 'hbs' );
 
@@ -52,8 +52,6 @@ app.use( Passport.initialize() );
 app.use( Passport.session() );
 
 Passport.use( new LocalStrategy( function( username, password, done ) {
-  console.log( 'client side username', username );
-  console.log( 'clientside password', password );
 
   User.findOne( {
     where: {
@@ -62,12 +60,9 @@ Passport.use( new LocalStrategy( function( username, password, done ) {
   } ).then( ( user ) => {
     bcrypt.compare( password, user.password )
       .then( ( result ) => {
-        console.log( 'compare result', result );
         if( result ){
-          console.log( 'authenticated' );
           return done( null, user );
         } else {
-          console.log( 'password does not match' );
           return done( null, false, { message: 'incorrect password' });
         }
       } )
@@ -92,18 +87,14 @@ Passport.deserializeUser( function( userId, done ){
       id: userId
     }
   } ).then( ( user ) => {
-    console.log('then');
     return done( null, {
       id: user.id,
       username: user.username
     } );
   } ).catch( ( err ) => {
-    console.log( err );
     done( err, user );
   } );
 } );
-
-
 
 app.use( '/', galleryRoute );
 
