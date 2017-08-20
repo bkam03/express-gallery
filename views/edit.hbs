@@ -28,8 +28,38 @@
     <input type="text" id="description" name="description" value="{{description}}">
   </div>
 
+  <div class="add_meta_field">
+    <ul id="meta_fields"></ul>
+    <!--
+      FIELDS GO HERE
+      <li>
+        <input class="meta_key" type="text" name="someKey" placeholder="Attribute">
+        <input class="meta_value" type="text" name="meta[someKey]" placeholder="Attribute">
+      </li>
+    -->
+    <button id="add_meta_field_button" type="button" >Add Meta Data</button>
+  </div>
+
+  <div class="metaTags">
+  metatags
+    {{#each metaTags}}
+    <div class="metaTag">
+      <label for="{{key}}">key</label>
+      <input type="text" id="description" name="{{key}}" value="{{key}}">
+
+      <label for="{{value}}">value</label>
+      <input type="text" id="description" name="{{value}}" value="{{value}}">
+      <input type="button" value = "x" class="deleteButton">
+      <br>
+      <br>
+    </div>
+    {{/each}}
+  </div>
+
   <div class="form-field">
     <input type="hidden" name="_method" value="PUT">
     <input type="submit" value="Edit">
   </div>
 </form>
+<script src="/js/metaFields.js"></script>
+<script src="/js/editPageMetaTags.js"></script>
