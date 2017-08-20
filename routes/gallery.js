@@ -34,7 +34,6 @@ function objectToArray( object ){
   return array;
 }
 
-
 router.get( '/gallery/new', ( req, res ) => {
   res.render( './newPhoto' );
 } );
@@ -43,7 +42,6 @@ router.get( '/gallery/:id/edit', userAuthenticated, ( req, res ) => {
   let photoId = req.params.id;
   Gallery.findById( parseInt( photoId ) )
   .then( ( photo ) => {
-    let values = photo.dataValues;
 
     let metaTagArray = null;
     photoMetas().findOne({"photoId": photoId})
@@ -51,6 +49,7 @@ router.get( '/gallery/:id/edit', userAuthenticated, ( req, res ) => {
         if( meta !== null ) {
           metaTagArray = objectToArray( meta.metaTags );
         }
+        let values = photo.dataValues;
         let resObject = {
           id: values.id,
           link: values.link,
@@ -58,35 +57,29 @@ router.get( '/gallery/:id/edit', userAuthenticated, ( req, res ) => {
           description: values.description,
           metaTags: metaTagArray
         };
-
         res.render( '../views/edit', resObject );
-
       })
     .catch( err => {
       console.log( 'metaTag get error', err );
     } );
-
   } )
   .catch( ( err ) => {
     console.log( err );
   } );
 } );
 
-
 router.route( '/gallery/:id' )
   .get( ( req, res ) => {
     let photoId = req.params.id;
     Gallery.findById( parseInt( photoId ) )
       .then( ( photo ) => {
-        let values = photo.dataValues;
-
         let metaTagArray = null;
         photoMetas().findOne({"photoId": photoId})
           .then( meta => {
             if( meta !== null ){
               metaTagArray = objectToArray( meta.metaTags );
             }
-
+            let values = photo.dataValues;
             let resObject = {
               id: values.id,
               link: values.link,
@@ -94,18 +87,14 @@ router.route( '/gallery/:id' )
               description: values.description,
               metaTags: metaTagArray
             };
-
             res.render( 'photoView', resObject );
-
           })
         .catch( err => {
           console.log( 'metaTag get error', err );
         } );
       } )
       .catch( (err) => {
-        console.log( err );
         res.redirect( 404, '/' );
-        //maybe do something if id not found.
       });
   } )
   .put( userAuthenticated, ( req, res ) => {
@@ -120,7 +109,6 @@ router.route( '/gallery/:id' )
       }
     } )
       .then( ( photo ) => {
-
         photoMetas().deleteMany( { photoId: req.params.id } )
           .then( () => {
             let photoMetaTags = {
@@ -267,3 +255,4 @@ take off borders later
 
 specific delete/edit auth.  match postedBy?  add this to image data on upload.
 at register, check if username already exists
+*/
