@@ -87,7 +87,6 @@ router.route( '/gallery/:id' )
         photoMetas().findOne({"photoId": parseInt(photoId)})
           .then( meta => {
             metaTagArray = objectToArray( meta.metaTags );
-            console.log( "$$$$$$$$$$$", metaTagArray);
 
             let resObject = {
               id: values.id,
@@ -111,6 +110,7 @@ router.route( '/gallery/:id' )
   } )
   .put( userAuthenticated, ( req, res ) => {
     let request = req.body;
+    console.log( "@@@@@@@@@@@@@@@@@@@@", request );
     Gallery.update( {
       author: request.author,
       link: request.link,
@@ -146,6 +146,7 @@ router.route( '/gallery/:id' )
 
 
 router.post( '/gallery', ( req, res ) => {
+    console.log( "@@@@@@@@@@@@@@@@", req.body );
     Gallery.create( {
         author: req.body.author,
         link: req.body.link,
@@ -233,7 +234,6 @@ router.post( '/register', ( req, res ) => {
 
 
 router.get( '/', ( req, res ) => {
-  console.log( '@@@@@@@@@user', req.user );
   Gallery.findAll({
     order: [
       ['createdAt', 'DESC']
