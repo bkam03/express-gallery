@@ -3,28 +3,28 @@
 <img src="{{link}}" alt="photo">
 
 <form action="/gallery/{{id}}" method="post">
-  <br>
-  <div class="form-field">
-    <label for="author">author</label>
-    <br>
-    <input type="text" id="author" name="author" value="{{author}}">
-  </div>
+  <div>
+    <div class="newPhoto-formField">
+      <label for="author">author</label>
+      <br>
+      <input type="text" id="author" name="author" value="{{author}}">
+    </div>
 
-  <div class="form-field">
-    <label for="link">link</label>
-    <br>
-    <input type="text" id="link" name="link" value="{{link}}">
-  </div>
+    <div class="newPhoto-formField">
+      <label for="link">link</label>
+      <br>
+      <input type="text" id="link" name="link" value="{{link}}">
+    </div>
 
-  <div class="form-field">
-    <label for="description">description</label>
-    <br>
-    <input type="text" id="description" name="description" value="{{description}}">
+    <div class="newPhoto-formField">
+      <label for="description">description</label>
+      <br>
+      <input type="text" id="description" name="description" value="{{description}}">
+    </div>
   </div>
 
   <div class="add_meta_field">
     <ul id="meta_fields">
-
       {{#each metaTags}}
         <li>
           {{key}}
@@ -40,16 +40,14 @@
         </li>
       -->
     </ul>
-
     <button id="add_meta_field_button" type="button" >Add Meta Data</button>
   </div>
 
-
-
-  <div class="form-field">
+  <div class="newPhoto-formField">
     <input type="hidden" name="_method" value="PUT">
     <input type="submit" value="Edit">
   </div>
 </form>
+
 <script src="/js/metaFields.js"></script>
 <script src="/js/editPageMetaTags.js"></script>
