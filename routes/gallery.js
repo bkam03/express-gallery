@@ -49,7 +49,7 @@ router.get( '/gallery/:id/edit', userAuthenticated, ( req, res ) => {
     let values = photo.dataValues;
 
     let metaTagArray = null;
-    photoMetas().findOne({"photoId": parseInt(photoId)})
+    photoMetas().findOne({"photoId": photoId})
       .then( meta => {
         if( meta !== null ) {
           metaTagArray = objectToArray( meta.metaTags );
@@ -84,8 +84,7 @@ router.route( '/gallery/:id' )
         let values = photo.dataValues;
 
         let metaTagArray = null;
-        console.log( 'PHOTOID', photoId );
-        photoMetas().findOne({"photoId": parseInt(photoId)})
+        photoMetas().findOne({"photoId": photoId})
           .then( meta => {
             console.log( 'META', meta);
             if( meta !== null ){
@@ -128,20 +127,27 @@ router.route( '/gallery/:id' )
       .then( ( photo ) => {
         console.log( "###########",req.body.meta, "#############" );
 
-        let photoMetaTags = {
-        photoId: req.params.id,
-        metaTags: req.body.meta
-        };
-        photoMetas().insert( photoMetaTags )
+        photoMetas().deleteMany( { photoId: req.params.id } )
+          .then( () => {
+            console.log( "deleted" );
+            let photoMetaTags = {
+            photoId: req.params.id,
+            metaTags: req.body.meta
+            };
+            photoMetas().insert( photoMetaTags );
+          } )
+          .catch( (err) => {
+            console.log( 'did not delete', err );
+          } );
 
 /*
         photoMetas().updateOne( { photoId: parseInt(req.params.id) }, { $set : req.body.meta } )*/
-          .then( () => {
+         /* .then( () => {
             console.log( 'UPDATE(L) SUCCESS' );
           } )
           .catch( ( err ) => {
             console.log( "error from update", err );
-          } );
+          } );*/
 
 
 /*        photoMetas.updateOne(
@@ -169,10 +175,7 @@ router.route( '/gallery/:id' )
     } )
       .then( ( photoId ) => {
         console.log( photoId );
-        photoMetas().deleteMany( { photoId: photoId.toString() }, function ( err, obj){
-          if( err ) throw err;
-          console.log( obj );
-        } );
+
         console.log( `photo ${ photoId } deleted` );
         res.redirect( 200, '/' );
       } )
@@ -183,7 +186,6 @@ router.route( '/gallery/:id' )
 
 
 router.post( '/gallery', ( req, res ) => {
-    console.log( "@@@@@@@@@@@@@@@@", req.body );
     Gallery.create( {
         author: req.body.author,
         link: req.body.link,
