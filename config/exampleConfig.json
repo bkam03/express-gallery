@@ -2,7 +2,7 @@
   "development": {
     "username": "username",
     "password": "password",
-    "database": "galleries",
+    "database": "galleryname",
     "host": "127.0.0.1",
     "dialect": "postgres"
   },
@@ -20,5 +20,5 @@
     "host": "127.0.0.1",
     "dialect": "mysql"
   },
-  "SESSION_SECRET": "secret"
+  "SESSION_SECRET": "insertsecrethere"
 }
