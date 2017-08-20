@@ -271,6 +271,11 @@ router.post( '/register', ( req, res ) => {
   //else display some sort of received page, and send to gallery.
 } );
 
+router.get( '/logout', ( req, res ) => {
+  req.logout();
+  res.redirect( 200, '/' );
+} );
+
 
 router.get( '/', ( req, res ) => {
   Gallery.findAll({
