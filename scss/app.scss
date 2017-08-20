@@ -5,7 +5,6 @@ body {
   display: flex;
   align-items: center;
   flex-direction: column;
-
 }
 
 .content {
@@ -67,7 +66,6 @@ body {
 
     .photo {
       width: 33%;
-
     }
   }
 }
@@ -93,7 +91,6 @@ a {
 img {
   width: 75%;
   object-fit: contain;
-
 }
 
 .label {
@@ -109,7 +106,7 @@ form {
   flex-direction: column;
 }
 
-.form-field {
+.newPhoto-formField {
   text-align: center;
   margin: 10px;
 
@@ -118,53 +115,3 @@ form {
   }
 }
 
-/* form {
-  display: flex;
-  flex-direction: column;
-} */
-/*
-
-.photo {
-  display: flex;
-  flex-flow: wrap;
-  justify-content: center;
-  width: 75%;
-  min-height: 8rem;
-  margin: 0.5rem;
-
-  a {
-    display: flex;
-    flex-flow: wrap;
-    justify-content: center;
-    text-decoration: none;
-    color: black;
-    img {
-
-      width: 100%;
-      max-height: 70%;
-      object-fit: contain;
-    }
-  }
-
-  p {
-    margin: 0;
-  }
-
-  @media screen and (min-width: 540px) {
-  .photo {
-    width: 33%;
-    max-height: 100%;
-    img {
-      max-height: 100%;
-    }
-  }
-  }
-}
-
-@media screen and ( min-width: 540px ) {
-
-
-
-}
-
- */
