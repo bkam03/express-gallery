@@ -51,9 +51,9 @@ router.get( '/gallery/:id/edit', userAuthenticated, ( req, res ) => {
     let metaTagArray = null;
     photoMetas().findOne({"photoId": parseInt(photoId)})
       .then( meta => {
-        metaTagArray = objectToArray( meta.metaTags );
-        console.log( "$$$$$$$$$$$", metaTagArray);
-
+        if( meta !== null ) {
+          metaTagArray = objectToArray( meta.metaTags );
+        }
         let resObject = {
           id: values.id,
           link: values.link,
@@ -84,9 +84,13 @@ router.route( '/gallery/:id' )
         let values = photo.dataValues;
 
         let metaTagArray = null;
+        console.log( 'PHOTOID', photoId );
         photoMetas().findOne({"photoId": parseInt(photoId)})
           .then( meta => {
-            metaTagArray = objectToArray( meta.metaTags );
+            console.log( 'META', meta);
+            if( meta !== null ){
+              metaTagArray = objectToArray( meta.metaTags );
+            }
 
             let resObject = {
               id: values.id,
@@ -105,12 +109,13 @@ router.route( '/gallery/:id' )
       } )
       .catch( (err) => {
         console.log( err );
+        res.redirect( 404, '/' );
         //maybe do something if id not found.
       });
   } )
   .put( userAuthenticated, ( req, res ) => {
     let request = req.body;
-    console.log( "@@@@@@@@@@@@@@@@@@@@", request );
+    console.log( "EDITED META TAGS", request );
     Gallery.update( {
       author: request.author,
       link: request.link,
@@ -121,10 +126,37 @@ router.route( '/gallery/:id' )
       }
     } )
       .then( ( photo ) => {
+        console.log( "###########",req.body.meta, "#############" );
+
+        let photoMetaTags = {
+        photoId: req.params.id,
+        metaTags: req.body.meta
+        };
+        photoMetas().insert( photoMetaTags )
+
+/*
+        photoMetas().updateOne( { photoId: parseInt(req.params.id) }, { $set : req.body.meta } )*/
+          .then( () => {
+            console.log( 'UPDATE(L) SUCCESS' );
+          } )
+          .catch( ( err ) => {
+            console.log( "error from update", err );
+          } );
+
+
+/*        photoMetas.updateOne(
+          { photoId: req.params.id },
+          {
+            $set: req.body.meta
+          }
+        );*/
+
+
+
         res.redirect( 200, `./${ req.params.id }` );
       } )
       .catch( ( err ) => {
-        console.log( photo );
+        console.log( "@@error", err );
         res.redirect( 400, `./${ req.params.id }` );
       } );
 
@@ -136,6 +168,11 @@ router.route( '/gallery/:id' )
       }
     } )
       .then( ( photoId ) => {
+        console.log( photoId );
+        photoMetas().deleteMany( { photoId: photoId.toString() }, function ( err, obj){
+          if( err ) throw err;
+          console.log( obj );
+        } );
         console.log( `photo ${ photoId } deleted` );
         res.redirect( 200, '/' );
       } )
@@ -155,7 +192,7 @@ router.post( '/gallery', ( req, res ) => {
     } )
     .then( ( data ) => {
       let photoMetaTags = {
-        photoId: data.id,
+        photoId: data.id.toString(),
         metaTags: req.body.meta
       };
       photoMetas().insert( photoMetaTags );
