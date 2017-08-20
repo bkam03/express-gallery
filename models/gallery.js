@@ -4,14 +4,12 @@ module.exports = function(sequelize, DataTypes) {
     link: DataTypes.STRING,
     description: DataTypes.STRING,
     postedBy: DataTypes.STRING
-
   }, {
     classMethods: {
       associate: function(models) {
       }
     }
   });
-
   return Gallery;
 };
 
