@@ -3,12 +3,6 @@
 <img src="{{link}}" alt="photo">
 
 <form action="/gallery/{{id}}" method="post">
-<!--
-  <label for="title">title</label>
-<br>
-<input type="text" id="title" name="title" value="{{id}}">
-<br>
--->
   <br>
   <div class="form-field">
     <label for="author">author</label>
@@ -32,21 +26,6 @@
     <ul id="meta_fields">
 
       {{#each metaTags}}
-<!--           <label for="{{key}}">key</label>
-<input type="text" id="description" name="{{key}}" value="{{key}}">
-
-<label for="{{value}}">value</label>
-<input type="text" id="description" name="{{value}}" value="{{value}}">
-<input type="button" value = "x" class="deleteButton">
-<br>
-<br> -->
-<!--           <input class="meta_key" type="text" name="{{key}}" value="{{key}}"> -->
-        <!-- <li>
-          <label for="{{key}}">{{key}}</label>
-
-          <input class="meta_value" name="{{key}}" type="text" name="{{key}}" value="{{value}}">
-          <br>
-        </li> -->
         <li>
           {{key}}
           <input class="meta_value" type="text" name="meta[{{key}}]" value="{{value}}">
