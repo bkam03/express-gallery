@@ -1,5 +1,6 @@
-$desktop-threshold: 540px;
-$maxScreen: 1200px;
+@import 'partials/_header';
+@import 'partials/_variables';
+
 
 body {
   display: flex;
@@ -16,30 +17,7 @@ body {
 }
 
 
-.banner{
-  display: flex;
-  align-items: center;
-  max-width: $maxScreen;
-  h1 {
-    text-align: center;
-    width: 100%;
-    font-size: 300%;
-    padding: 5px;
-  }
-  #description {
-    display: none;
-    font-size: 50%;
-    width: 40%;
-  }
-  @media screen and (min-width: $desktop-threshold) {
-    h1 {
-      width: 60%;
-    }
-    #description {
-      display: block;
-    }
-  }
-}
+
 
 
 #frontPhoto {
