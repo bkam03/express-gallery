@@ -1,0 +1,26 @@
+@import '_variables';
+
+.banner{
+  display: flex;
+  align-items: center;
+  max-width: $maxScreen;
+  h1 {
+    text-align: center;
+    width: 100%;
+    font-size: 300%;
+    padding: 5px;
+  }
+  #description {
+    display: none;
+    font-size: 50%;
+    width: 40%;
+  }
+  @media screen and (min-width: $desktop-threshold) {
+    h1 {
+      width: 60%;
+    }
+    #description {
+      display: block;
+    }
+  }
+}
